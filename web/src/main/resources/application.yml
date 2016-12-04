@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: shici
+  jdbc:
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shici?useSSL=false
+    user: shici
+    password: shici
+
+server:
+  port: 9090
+
+oauth:
+  weibo:
+    appkey: xxx
+    appsecret: xxx
+  qq:
+    appkey: xxx
+    appsecret: xxx
+
+search:
+  host: localhost
+
+robot:
+  app:
+    ids: xxx,xxx,xxx
+
+wxapi:
+  app:
+    id: xxx
+    secret: xxx
+    url: http://weixin.sample.com/
+    token: xxx
+    aeskey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  js:
+    domain: weixin.sample.com

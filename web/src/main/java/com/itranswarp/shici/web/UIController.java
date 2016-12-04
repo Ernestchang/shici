@@ -16,7 +16,6 @@ import com.itranswarp.shici.bean.CategoryBean;
 import com.itranswarp.shici.bean.PoemBean;
 import com.itranswarp.shici.bean.PoetBean;
 import com.itranswarp.shici.model.Category;
-import com.itranswarp.shici.model.Dynasty;
 import com.itranswarp.shici.model.Poem;
 import com.itranswarp.shici.model.Poet;
 import com.itranswarp.shici.service.PoemService;

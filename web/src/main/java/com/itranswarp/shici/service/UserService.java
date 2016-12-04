@@ -5,14 +5,12 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itranswarp.shici.cache.Cache;
 import com.itranswarp.shici.exception.APIEntityNotFoundException;
 import com.itranswarp.shici.exception.APIPermissionException;
 import com.itranswarp.shici.model.User;
@@ -23,9 +21,6 @@ import com.itranswarp.warpdb.PagedResults;
 public class UserService extends AbstractService {
 
 	final Log log = LogFactory.getLog(getClass());
-
-	@Autowired
-	Cache cache;
 
 	/**
 	 * Fetch user by id, or null if not found.
@@ -55,19 +50,19 @@ public class UserService extends AbstractService {
 		return warpdb.from(User.class).where("role <= ?", User.Role.EDITOR).orderBy("name").list();
 	}
 
-	@RequestMapping(value = "/api/users", method = RequestMethod.GET)
+	@GetMapping("/api/users")
 	public PagedResults<User> getUsers(@RequestParam(value = "page", defaultValue = "1") int pageIndex) {
 		assertEditorRole();
 		return warpdb.from(User.class).orderBy("createdAt desc").list(pageIndex);
 	}
 
-	@RequestMapping(value = "/api/editors", method = RequestMethod.GET)
+	@GetMapping("/api/editors")
 	public Map<String, List<User>> getEditors() {
 		assertEditorRole();
 		return MapUtil.createMap("results", doGetEditors());
 	}
 
-	@RequestMapping(value = "/api/users/{id}/lock/{seconds}", method = RequestMethod.POST)
+	@PostMapping("/api/users/{id}/lock/{seconds}")
 	public User restLockUser(@PathVariable(value = "id") String id, @PathVariable(value = "seconds") int seconds) {
 		assertEditorRole();
 		User user = getUser(id);
